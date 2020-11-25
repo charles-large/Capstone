@@ -1,3 +1,38 @@
+
+
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+    host: process.env.db_host,
+    user: process.env.db_user,
+    password: process.env.db_password,
+    database: process.env.database
+});
+
+connection.connect();
+
+exports.handler = (event, context) => {
+
+    connection.query("SELECT * FROM steam_games WHERE name = 'Grand Theft Auto V: Premium Online Edition'", function(rows, fields) {
+        /*var x;
+        for (x in fields){
+            if ((fields[x].name) === "Grand Theft Auto V: Premium Online Edition"){
+                console.log(fields[x].url);
+            }}
+        */
+        console.log(fields[0].url)
+        context.succeed('Success');
+        // console.log(err)
+    });
+
+};
+
+
+
+
+
+
+/*
 exports.handler = async (event) => {
     console.log(event)
     // variables from user input
@@ -32,7 +67,9 @@ exports.handler = async (event) => {
     }
     // If games has a value, then print statement and move on
     else if (games != null){
-    let lambda_response = {     
+        var resolution = event.currentIntent.slots.monitor_resolution
+        if (resolution == null) {
+            let lambda_response = {     
             "dialogAction": {     
                 "type": "ElicitSlot",
             "slotToElicit": "monitor_resolution",
@@ -72,6 +109,10 @@ exports.handler = async (event) => {
                     } 
      return lambda_response;  
     }
+    else if (resolution != null) {
+        // code here to RDS database
+    } 
+    }
     }
     
     
@@ -96,3 +137,5 @@ exports.handler = async (event) => {
     
     
 };
+
+*/
