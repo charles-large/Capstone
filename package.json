@@ -16,5 +16,18 @@
   "bugs": {
     "url": "https://github.com/charles-large/Capstone/issues"
   },
-  "homepage": "https://github.com/charles-large/Capstone#readme"
+  "homepage": "https://github.com/charles-large/Capstone#readme",
+  "dependencies": {
+    "bignumber.js": "file:node_modules/bignumber.js",
+    "core-util-is": "file:node_modules/core-util-is",
+    "inherits": "file:node_modules/inherits",
+    "isarray": "file:node_modules/isarray",
+    "mysql": "file:node_modules/mysql",
+    "process-nextick-args": "file:node_modules/process-nextick-args",
+    "readable-stream": "file:node_modules/readable-stream",
+    "safe-buffer": "file:node_modules/safe-buffer",
+    "sqlstring": "file:node_modules/sqlstring",
+    "string_decoder": "file:node_modules/string_decoder",
+    "util-deprecate": "file:node_modules/util-deprecate"
+  }
 }
