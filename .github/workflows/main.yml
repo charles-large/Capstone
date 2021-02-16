@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: ./
         with:
           node-version: ${{ matrix.node-version }}
       - name: npm install and build
@@ -29,5 +29,5 @@ jobs:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
           aws_region: us-east-1
-          function_name: budget
+          function_name: testFunctionGithub
           zip_file: bundle.zip
