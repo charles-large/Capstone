@@ -144,7 +144,7 @@ exports.handler = function (event, context, callback){
                                     "fulfillmentState": "Fulfilled",
                                     "message": {
                                       "contentType": "PlainText",
-                                      "content": apple(data)
+                                      "content": str(apple(data))
                                     }
                             }
                         }
