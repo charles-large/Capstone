@@ -45,8 +45,7 @@ exports.handler = function (event, context, callback){
         
             "message": {       
                 "contentType": "PlainText",
-                "content": "Your budget of " + budget + " has been confirmed + \\n + \
-                What kind of games do you play?"
+                "content": "Your budget of " + budget + " has been confirmed" + "\n" + " What kind of games do you play?"
         },
         "intentName": "Budget",
         "slots": {
