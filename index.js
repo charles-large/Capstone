@@ -113,11 +113,15 @@ exports.handler = function (event, context, callback){
         getResult(game_choice).then(function(rows) {
             var data=[]
             rows.forEach(function(x){
-              data.push({
-                  key: rows[x].name,
-                  value: row[x].minimum_requirements
+               data.push("Seperate: " + x) 
+            
+            })
+            
+                ``` data.push({
+                  "key": rows[x].name,
+                  "value": row[x].minimum_requirements
               });  
-            });
+            });```
             
             //Parse response from database
             //console.log("test sample " + rows[0][1])
