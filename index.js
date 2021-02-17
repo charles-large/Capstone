@@ -45,8 +45,7 @@ exports.handler = function (event, context, callback){
         
             "message": {       
                 "contentType": "PlainText",
-                "content": "Your budget of " + budget + " has been confirmed \
-                \
+                "content": "Your budget of " + budget + " has been confirmed + \\n + \
                 What kind of games do you play?"
         },
         "intentName": "Budget",
@@ -131,7 +130,7 @@ exports.handler = function (event, context, callback){
                         "fulfillmentState": "Fulfilled",
                         "message": {
                           "contentType": "PlainText",
-                          "content": "Name: " + rows[0].name + " Minimum Requirements: " + rows_parsed4[0] + rows_parsed4[1] + rows_parsed4[2] 
+                          "content": "Name: " + rows[0].name + "\n" + " Minimum Requirements: " + "\n" + rows_parsed4[0] + "\n" + rows_parsed4[1] + "\n" + rows_parsed4[2] 
                         }
                 }
             }
