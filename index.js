@@ -14,7 +14,7 @@ function getResult(game_choice){
             connection.connect();
             //const games = "Battle Brothers";
             data = []
-            var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE 'Ag%' AND minimum_requirements NOT IN ('','NaN') AND types = 'app'";
+            var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE 'Ag%' AND minimum_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
             connection.query(sql, [game_choice], function(err, rows, fields){
                 result = JSON.stringify(rows);
                 if (err) {
@@ -140,7 +140,7 @@ exports.handler = function (event, context, callback){
                         "fulfillmentState": "Fulfilled",
                         "message": {
                           "contentType": "PlainText",
-                          "content": "Rows: " + result[0]
+                          "content": "Rows: " + result
                         }
                 }
             }
