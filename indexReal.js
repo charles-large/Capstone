@@ -13,10 +13,8 @@ function getResult(game_choice){
             return new Promise(function(resolve, reject) {
             connection.connect();
             //const games = "Battle Brothers";
-            data = []
-            var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE 'Ag%' AND minimum_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
+            var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE ?";
             connection.query(sql, [game_choice], function(err, rows, fields){
-                //result = JSON.stringify(rows);
                 if (err) {
                     return reject(err);
                 }
@@ -24,8 +22,6 @@ function getResult(game_choice){
                 //console.log(rows)
                 //console.log(fields)
                 //console.log(fields[0].minimum_requirements)
-                //results = JSON.stringify(rows);
-                
                 resolve(rows);
             });
             connection.end()
@@ -111,34 +107,21 @@ exports.handler = function (event, context, callback){
         // code here to RDS database
         const game_choice = event.currentIntent.slots.games_played;
         getResult(game_choice).then(function(rows) {
-            const data=[]
-            for (var i = 0; i < data.length; i++){
-            data.push(rows[i].name);
-            }
-            
-            
             //Parse response from database
-            //console.log("test sample " + rows[0][1])
-            //console.log("Minimum require " + rows[0][0].minimum_requirements)
-            //const stagnant = ''
-            //const query = rows[0].forEach(function(value){
-           //     console.log(value)
-           //     stagnant + value
-
-           // });
+            const query = rows[0].minimum_requirements
     // Removes semi colon and commas from output
-    //const rows_parsed = query.replace(/[:,]/g,' ');
+    const rows_parsed = query.replace(/[:,]/g,' ');
     //Removes excessive white space
-    //const rows_parsed2 = rows_parsed.replace(/\s+/g,' ').trim()
+    const rows_parsed2 = rows_parsed.replace(/\s+/g,' ').trim()
     //Seperates output and only includes sections that Begin with Processor and end with Storage
-    //var part = rows_parsed2.substring(
-    //rows_parsed2.lastIndexOf(" Processor") + 1, 
-    //rows_parsed2.lastIndexOf("Storage")
-//);
+    var part = rows_parsed2.substring(
+    rows_parsed2.lastIndexOf(" Processor") + 1, 
+    rows_parsed2.lastIndexOf("Storage")
+);
     //Replaces the three categories with a semi colon for visibility
-    //var rows_parsed3 = part.replace(/Processor/g,"Processor:").replace(/Graphics/g,",Graphics:").replace(/Memory/g,",Memory:")
+    var rows_parsed3 = part.replace(/Processor/g,"Processor:").replace(/Graphics/g,",Graphics:").replace(/Memory/g,",Memory:")
     // Splits the output into three sections by a comma representing the three categories
-    //var rows_parsed4 = rows_parsed3.split(',');
+    var rows_parsed4 = rows_parsed3.split(',');
             //
     let lambda_response = {
                 "dialogAction": {
@@ -146,7 +129,7 @@ exports.handler = function (event, context, callback){
                         "fulfillmentState": "Fulfilled",
                         "message": {
                           "contentType": "PlainText",
-                          "content": "Rows: " + data[0] + data[1]
+                          "content": "Name: " + rows[0].name + "\n" + " Minimum Requirements: " + "\n" + rows_parsed4[0] + "\n" + rows_parsed4[1] + "\n" + rows_parsed4[2] 
                         }
                 }
             }
