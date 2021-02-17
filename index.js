@@ -16,6 +16,8 @@ function getResult(game_choice){
             data = []
             var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE 'Ag %' AND minimum_requirements NOT IN ('','NaN') AND types = 'app'";
             connection.query(sql, [game_choice], function(err, rows, fields){
+                rows = rows.map(v => Object.assign({}, v));
+                fields = fields.map(v => Object.assign({}, v));
                 if (err) {
                     return reject(err);
                 }
