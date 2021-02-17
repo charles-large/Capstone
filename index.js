@@ -13,8 +13,14 @@ function getResult(game_choice){
             return new Promise(function(resolve, reject) {
             connection.connect();
             //const games = "Battle Brothers";
+            data = []
             var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE 'Ag %' AND minimum_requirements NOT IN ('','NaN') AND types = 'app'";
             connection.query(sql, [game_choice], function(err, rows, fields){
+                rows.forEach(function(row) {
+                    row = JSON.stringify(row)
+                    data.push(row)
+                })
+                
                 if (err) {
                     return reject(err);
                 }
@@ -22,9 +28,9 @@ function getResult(game_choice){
                 //console.log(rows)
                 //console.log(fields)
                 //console.log(fields[0].minimum_requirements)
-                results = JSON.stringify(rows);
+                //results = JSON.stringify(rows);
                 
-                resolve(results);
+                resolve(data);
             });
             connection.end()
             });
