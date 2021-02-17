@@ -109,23 +109,24 @@ exports.handler = function (event, context, callback){
         getResult(game_choice).then(function(rows) {
             //Parse response from database
             const stagnant = ''
-            const query = rows.forEach(function(value){
+            const query = rows[0].forEach(function(value){
+                console.log(value)
                 stagnant + value
 
             });
     // Removes semi colon and commas from output
-    const rows_parsed = query.replace(/[:,]/g,' ');
+    //const rows_parsed = query.replace(/[:,]/g,' ');
     //Removes excessive white space
-    const rows_parsed2 = rows_parsed.replace(/\s+/g,' ').trim()
+    //const rows_parsed2 = rows_parsed.replace(/\s+/g,' ').trim()
     //Seperates output and only includes sections that Begin with Processor and end with Storage
-    var part = rows_parsed2.substring(
-    rows_parsed2.lastIndexOf(" Processor") + 1, 
-    rows_parsed2.lastIndexOf("Storage")
-);
+    //var part = rows_parsed2.substring(
+    //rows_parsed2.lastIndexOf(" Processor") + 1, 
+    //rows_parsed2.lastIndexOf("Storage")
+//);
     //Replaces the three categories with a semi colon for visibility
-    var rows_parsed3 = part.replace(/Processor/g,"Processor:").replace(/Graphics/g,",Graphics:").replace(/Memory/g,",Memory:")
+    //var rows_parsed3 = part.replace(/Processor/g,"Processor:").replace(/Graphics/g,",Graphics:").replace(/Memory/g,",Memory:")
     // Splits the output into three sections by a comma representing the three categories
-    var rows_parsed4 = rows_parsed3.split(',');
+    //var rows_parsed4 = rows_parsed3.split(',');
             //
     let lambda_response = {
                 "dialogAction": {
@@ -133,7 +134,7 @@ exports.handler = function (event, context, callback){
                         "fulfillmentState": "Fulfilled",
                         "message": {
                           "contentType": "PlainText",
-                          "content": "Name: " + query 
+                          "content": "Name: " + stagnant 
                         }
                 }
             }
