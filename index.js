@@ -107,7 +107,6 @@ exports.handler = function (event, context, callback){
      callback(null,lambda_response);  
     }
     else if (resolution != null) {
-        exports.handler = function (event, context, callback){
             const game_choice = "Ag%";
             getResult(game_choice).then(function(rows) {
                         const data = []
@@ -145,7 +144,7 @@ exports.handler = function (event, context, callback){
                                     "fulfillmentState": "Fulfilled",
                                     "message": {
                                       "contentType": "PlainText",
-                                      "content": "apple(data)"
+                                      "content": apple(data)
                                     }
                             }
                         }
@@ -154,8 +153,7 @@ exports.handler = function (event, context, callback){
                 //console.log("Requirements getting through " + rows[0].minimum_requirements)
             })//.catch((err) => setImmediate(() => { throw err; }));
             
-            }
-
+            
 
         
     
