@@ -109,6 +109,7 @@ exports.handler = function (event, context, callback){
         getResult(game_choice).then(function(rows) {
             //Parse response from database
             console.log(rows[0])
+            console.log(rows[0].minimum_requirements)
             //const stagnant = ''
             //const query = rows[0].forEach(function(value){
            //     console.log(value)
