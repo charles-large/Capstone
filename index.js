@@ -113,7 +113,7 @@ exports.handler = function (event, context, callback){
         getResult(game_choice).then(function(rows) {
             const data=[]
             for (var i = 0; i < data.length; i++){
-            data.push(rows[i]);
+            data.push(rows[i].name);
             }
             
                 ``` data.push({
