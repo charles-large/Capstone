@@ -22,10 +22,11 @@ function getResult(game_choice){
                 //console.log(rows)
                 //console.log(fields)
                 //console.log(fields[0].minimum_requirements)
-                list = rows.forEach(function(row) {
-                    console.log(row.name)
+                results = []
+                rows.forEach(function(row) {
+                    results.push(row);
                 })
-                resolve(list);
+                resolve(results);
             });
             connection.end()
             });
