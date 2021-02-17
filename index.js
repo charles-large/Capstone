@@ -112,9 +112,9 @@ exports.handler = function (event, context, callback){
         const game_choice = event.currentIntent.slots.games_played;
         getResult(game_choice).then(function(rows) {
             const data=[]
-            Array.from(rows).forEach(x => {
-                data.push(rows[x].name)
-            });
+            for (var i = 0; i < data.length; i++){
+            data.push(rows[i]);
+            }
             
                 ``` data.push({
                   "key": rows[x].name,
