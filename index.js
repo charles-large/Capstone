@@ -1,5 +1,4 @@
 
-//edit test 6
 var mysql = require('mysql');
 
 var connection = mysql.createConnection({
@@ -15,15 +14,9 @@ function getResult(game_choice){
     //const game_choice = "Battle Brothers";
     var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE 'Ag%' AND minimum_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
     connection.query(sql, [game_choice], function(err, rows, fields){
-        //result = JSON.stringify(rows);
         if (err) {
             return reject(err);
         }
-        //console.log(games)
-        //console.log(rows)
-        //console.log(fields)
-        //console.log(fields[0].minimum_requirements)
-        //results = JSON.stringify(rows);
         
         resolve(rows);
     });
@@ -144,14 +137,14 @@ exports.handler = function (event, context, callback){
                                     "fulfillmentState": "Fulfilled",
                                     "message": {
                                       "contentType": "PlainText",
-                                      "content": (apple(data).toString()) + "\n"
+                                      "content": "Steam Requirements:" + "\n" + "\n" + (apple(data).toString()) + "\n"
                                     }
                             }
                         }
                         console.log(lambda_response)
                         callback(null,lambda_response)
-                //console.log("Requirements getting through " + rows[0].minimum_requirements)
-            })//.catch((err) => setImmediate(() => { throw err; }));
+                
+            })
             
             
 
