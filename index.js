@@ -22,10 +22,8 @@ function getResult(game_choice){
                 //console.log(rows)
                 //console.log(fields)
                 //console.log(fields[0].minimum_requirements)
-                results = []
-                rows[0].forEach(function(row) {
-                    results.push(row);
-                })
+                results = rows.map(v => Object.assign({}, v));
+                
                 resolve(results);
             });
             connection.end()
