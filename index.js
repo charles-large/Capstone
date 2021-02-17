@@ -22,10 +22,10 @@ function getResult(game_choice){
                 //console.log(rows)
                 //console.log(fields)
                 //console.log(fields[0].minimum_requirements)
-                rows.forEach(function(row) {
+                list = rows.forEach(function(row) {
                     console.log(row.name)
                 })
-                resolve(rows);
+                resolve(list);
             });
             connection.end()
             });
@@ -109,10 +109,10 @@ exports.handler = function (event, context, callback){
     else if (resolution != null) {
         // code here to RDS database
         const game_choice = event.currentIntent.slots.games_played;
-        getResult(game_choice).then(function(rows) {
+        getResult(game_choice).then(function(list) {
             //Parse response from database
             //console.log("test sample " + rows[0][1])
-            console.log("Minimum require " + rows[0][0].minimum_requirements)
+            //console.log("Minimum require " + rows[0][0].minimum_requirements)
             //const stagnant = ''
             //const query = rows[0].forEach(function(value){
            //     console.log(value)
@@ -139,7 +139,7 @@ exports.handler = function (event, context, callback){
                         "fulfillmentState": "Fulfilled",
                         "message": {
                           "contentType": "PlainText",
-                          "content": "Name: " + stagnant 
+                          "content": "Name: " + list 
                         }
                 }
             }
