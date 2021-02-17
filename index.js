@@ -109,6 +109,7 @@ exports.handler = function (event, context, callback){
     else if (resolution != null) {
         exports.handler = function (event, context, callback){
             const game_choice = "Ag%";
+            //const game_choice = event.currentIntent.slots.games_played;
             getResult(game_choice).then(function(rows) {
                         const data = []
                         for (var i = 0; i < rows.length; i++){
