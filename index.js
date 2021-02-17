@@ -112,7 +112,7 @@ exports.handler = function (event, context, callback){
         const game_choice = event.currentIntent.slots.games_played;
         getResult(game_choice).then(function(rows) {
             var data=[]
-            rows.forEach(function(x){
+            Array.from(rows).forEach(function(x){
                data.push("Seperate: " + x) 
             
             })
