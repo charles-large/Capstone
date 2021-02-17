@@ -109,7 +109,7 @@ exports.handler = function (event, context, callback){
         const game_choice = event.currentIntent.slots.games_played;
         getResult(game_choice).then(function(rows) {
             //Parse response from database
-            console.log("test sample" + rows[0][1])
+            //console.log("test sample " + rows[0][1])
             console.log("Minimum require " + rows[0][0].minimum_requirements)
             //const stagnant = ''
             //const query = rows[0].forEach(function(value){
