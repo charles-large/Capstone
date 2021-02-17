@@ -146,7 +146,7 @@ exports.handler = function (event, context, callback){
                         "fulfillmentState": "Fulfilled",
                         "message": {
                           "contentType": "PlainText",
-                          "content": "Rows: " + data
+                          "content": "Rows: " + data[0] + data[1]
                         }
                 }
             }
