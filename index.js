@@ -109,7 +109,7 @@ exports.handler = function (event, context, callback){
         getResult(game_choice).then(function(rows) {
             //Parse response from database
             const stagnant = ''
-            const query = rows.foreach(function(value){
+            const query = rows.forEach(function(value){
                 stagnant + value
 
             });
