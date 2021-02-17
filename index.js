@@ -131,7 +131,7 @@ exports.handler = function (event, context, callback){
                         const apple = function (x){
                             const string_database = []
                             for (var i = 0; i < data.length; i++){
-                            const statement = "Name: " + rows[i].name + " " + " Minimum Requirements: " + " " + data[i][0] + " " + data[i][1] + " " + data[i][2] + "\\n"
+                            const statement = "Name: " + rows[i].name + "\n" + " Minimum Requirements: " + "\n" + data[i][0] + "\n" + data[i][1] + "\n" + data[i][2] + "\\n"
                             string_database.push(statement)
                         }
                         return(string_database)
@@ -144,7 +144,7 @@ exports.handler = function (event, context, callback){
                                     "fulfillmentState": "Fulfilled",
                                     "message": {
                                       "contentType": "PlainText",
-                                      "content": (apple(data).toString())
+                                      "content": (apple(data).toString()) + "\n"
                                     }
                             }
                         }
