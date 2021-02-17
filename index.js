@@ -116,11 +116,6 @@ exports.handler = function (event, context, callback){
             data.push(rows[i].name);
             }
             
-                ``` data.push({
-                  "key": rows[x].name,
-                  "value": row[x].minimum_requirements
-              });  
-            });```
             
             //Parse response from database
             //console.log("test sample " + rows[0][1])
