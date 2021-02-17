@@ -22,6 +22,7 @@ function getResult(game_choice){
                 //console.log(rows)
                 //console.log(fields)
                 //console.log(fields[0].minimum_requirements)
+                
                 resolve(rows);
             });
             connection.end()
@@ -108,8 +109,8 @@ exports.handler = function (event, context, callback){
         const game_choice = event.currentIntent.slots.games_played;
         getResult(game_choice).then(function(rows) {
             //Parse response from database
-            console.log(rows)
-            console.log(rows[0].minimum_requirements)
+            console.log("test sample" + rows[0][1])
+            console.log("Minimum require " + rows[0][0].minimum_requirements)
             //const stagnant = ''
             //const query = rows[0].forEach(function(value){
            //     console.log(value)
