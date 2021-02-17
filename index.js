@@ -16,11 +16,6 @@ function getResult(game_choice){
             data = []
             var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE 'Ag %' AND minimum_requirements NOT IN ('','NaN') AND types = 'app'";
             connection.query(sql, [game_choice], function(err, rows, fields){
-                rows.forEach(function(row) {
-                    row = JSON.stringify(row)
-                    data.push(row)
-                })
-                
                 if (err) {
                     return reject(err);
                 }
@@ -30,7 +25,7 @@ function getResult(game_choice){
                 //console.log(fields[0].minimum_requirements)
                 //results = JSON.stringify(rows);
                 
-                resolve(data);
+                resolve(rows,fields);
             });
             connection.end()
             });
@@ -114,7 +109,7 @@ exports.handler = function (event, context, callback){
     else if (resolution != null) {
         // code here to RDS database
         const game_choice = event.currentIntent.slots.games_played;
-        getResult(game_choice).then(function(data) {
+        getResult(game_choice).then(function(rows,fields) {
             //Parse response from database
             //console.log("test sample " + rows[0][1])
             //console.log("Minimum require " + rows[0][0].minimum_requirements)
@@ -144,7 +139,7 @@ exports.handler = function (event, context, callback){
                         "fulfillmentState": "Fulfilled",
                         "message": {
                           "contentType": "PlainText",
-                          "content": "Name: " + data
+                          "content": "Rows: " + rows + "Fields" + fields
                         }
                 }
             }
