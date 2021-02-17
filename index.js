@@ -22,7 +22,7 @@ function getResult(game_choice){
                 //console.log(rows)
                 //console.log(fields)
                 //console.log(fields[0].minimum_requirements)
-                results = rows.map(v => Object.assign({}, v));
+                results = JSON.stringify(rows);
                 
                 resolve(results);
             });
