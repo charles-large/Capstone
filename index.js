@@ -23,7 +23,7 @@ function getResult(game_choice){
                 //console.log(fields)
                 //console.log(fields[0].minimum_requirements)
                 results = []
-                rows.forEach(function(row) {
+                rows[0].forEach(function(row) {
                     results.push(row);
                 })
                 resolve(results);
