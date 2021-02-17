@@ -111,11 +111,10 @@ exports.handler = function (event, context, callback){
         // code here to RDS database
         const game_choice = event.currentIntent.slots.games_played;
         getResult(game_choice).then(function(rows) {
-            var data=[]
-            Array.from(rows).forEach(function(x){
-               data.push("Seperate: " + x) 
-            
-            })
+            const data=[]
+            Array.from(rows).forEach(x => {
+                data.push(rows[x].name)
+            });
             
                 ``` data.push({
                   "key": rows[x].name,
