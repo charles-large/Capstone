@@ -13,7 +13,7 @@ function getResult(game_choice){
             return new Promise(function(resolve, reject) {
             connection.connect();
             //const games = "Battle Brothers";
-            var sql = "SELECT * FROM steam_games WHERE name = ?";
+            var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE '? %' AND minimum_requirements NOT IN ('','NaN') AND types = 'app'";
             connection.query(sql, [game_choice], function(err, rows, fields){
                 if (err) {
                     return reject(err);
@@ -45,7 +45,7 @@ exports.handler = function (event, context, callback){
         
             "message": {       
                 "contentType": "PlainText",
-                "content": "Your budget of " + budget + " has been confirmed" + "\n" + " What kind of games do you play?"
+                "content": "Your budget of " + budget + " has been confirmed." + "\n" + " Name a game that you play?"
         },
         "intentName": "Budget",
         "slots": {
