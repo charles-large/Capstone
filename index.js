@@ -140,7 +140,7 @@ exports.handler = function (event, context, callback){
                         "fulfillmentState": "Fulfilled",
                         "message": {
                           "contentType": "PlainText",
-                          "content": "Rows: " + rows[0]
+                          "content": "Rows: " + rows[0].minimum_requirements
                         }
                 }
             }
