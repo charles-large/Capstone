@@ -108,12 +108,13 @@ exports.handler = function (event, context, callback){
         const game_choice = event.currentIntent.slots.games_played;
         getResult(game_choice).then(function(rows) {
             //Parse response from database
-            const stagnant = ''
-            const query = rows[0].forEach(function(value){
-                console.log(value)
-                stagnant + value
+            console.log(rows[0])
+            //const stagnant = ''
+            //const query = rows[0].forEach(function(value){
+           //     console.log(value)
+           //     stagnant + value
 
-            });
+           // });
     // Removes semi colon and commas from output
     //const rows_parsed = query.replace(/[:,]/g,' ');
     //Removes excessive white space
