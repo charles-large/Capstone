@@ -138,7 +138,7 @@ exports.handler = function (event, context, callback){
     //console.log("Requirements getting through " + rows[0].minimum_requirements)
 })//.catch((err) => setImmediate(() => { throw err; }));
 
-
+    
         
     
 
