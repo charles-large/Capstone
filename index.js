@@ -12,7 +12,7 @@ function getResult(game_choice){
     return new Promise(function(resolve, reject) {
     connection.connect();
     //const game_choice = "Battle Brothers";
-    var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE CONCAT(? + '%') AND minimum_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
+    var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE CONCAT(?,'%') AND minimum_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
     connection.query(sql, [game_choice], function(err, rows, fields){
         if (err) {
             return reject(err);
