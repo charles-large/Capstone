@@ -25,11 +25,10 @@ function getResult(game_choice){
 
             }) 
         }
-        //connection.end()
         resolve(rows);
         
     });
-    //connection.end()
+    connection.end()
     });
 }
 
