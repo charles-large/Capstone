@@ -14,11 +14,11 @@ function getResult(game_choice){
     //const game_choice = "Battle Brothers";
     let sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE ?";
     connection.query(sql, [game_choice], (err, rows, fields) => {
-        if (err || rows == ''){
+        if (err || rows === ''){
             let sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE CONCAT(?,'%') AND minimum_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
             connection.query(sql, [game_choice], (err, rows, fields) => {
                 if (err){
-                    reject("No matches found")
+                    console.log(err)
                 }
                 resolve(rows)
                 
