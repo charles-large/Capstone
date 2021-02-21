@@ -28,7 +28,6 @@ function getResult(game_choice){
         resolve(rows);
         
     });
-    connection.end()
     });
 }
 
@@ -110,6 +109,7 @@ exports.handler = function (event, context, callback){
     else if (resolution != null) {
             const game_choice = event.currentIntent.slots.games_played;
             getResult(game_choice).then(function(rows) {
+                        connection.end()
                         const data = []
                         for (var i = 0; i < rows.length; i++){
                         //Parse response from database
