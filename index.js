@@ -25,7 +25,7 @@ function getResult(game_choice){
 
             }) 
         }
-        connection.end()
+        //connection.end()
         resolve(rows);
         
     });
