@@ -1,5 +1,5 @@
 
-var mysql = NODErequire('mysql');
+var mysql = require('mysql');
 
 var connection = mysql.createConnection({
     host: process.env.db_host,
