@@ -135,6 +135,7 @@ exports.handler = function (event, context, callback){
                             const statement = "\n"+ "Name: " + rows[i].name + "\n" + " Minimum Requirements: " + "\n" + data[i][0] + "\n" + data[i][1] + "\n" + data[i][2] + "\n"
                             string_database.push(statement)
                         }
+                        connection.end()
                         return(string_database)
                         }
             
