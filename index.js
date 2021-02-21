@@ -20,7 +20,6 @@ function getResult(game_choice){
                 if (err){
                     reject("No matches found")
                 }
-                connection.end()
                 resolve(rows)
                 
 
