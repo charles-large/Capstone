@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
 
 function getResult(game_choice){
     return new Promise((resolve, reject) => {
-    connection.connect();
+    //connection.connect();
     //const game_choice = "Battle Brothers";
     var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE ?";
     connection.query(sql, [game_choice], (err, rows, fields) => {
