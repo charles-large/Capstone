@@ -1,5 +1,5 @@
 
-var mysql = require('mysql');
+var mysql = NODErequire('mysql');
 
 var connection = mysql.createConnection({
     host: process.env.db_host,
@@ -10,7 +10,7 @@ var connection = mysql.createConnection({
 
 function getResult(game_choice){
     return new Promise((resolve, reject) => {
-    //connection.connect();
+    connection.connect();
     //const game_choice = "Battle Brothers";
     var sql = "SELECT * FROM pc_games.steam_games WHERE name LIKE ?";
     connection.query(sql, [game_choice], (err, rows, fields) => {
@@ -28,7 +28,7 @@ function getResult(game_choice){
         
         resolve(rows);
     });
-    //connection.release()
+    //connection.end()
     });
 }
 
