@@ -72,7 +72,7 @@ function getSecondResult(rows) {
                                 const statement = "[" + i + "]" + " Name: " + rows[i].name + "\n"
                                 name_database.push(statement)
                             }
-                            return(name_database.join())
+                            return(name_database)
 
                             }
                             let lambda_response = {     
