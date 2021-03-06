@@ -70,7 +70,7 @@ function getSecondResult(rows) {
                                 const name_database = []
                                 for (var i = 0; i < data.length; i++){
                                 const statement = "[" + i + "]" + " Name: " + rows[i].name + "\n" 
-                                name_database.push(statement)
+                                name_database.push(statement).replace(/[,]/g,'')
                             }
                             return(name_database)
 
@@ -99,9 +99,7 @@ function getSecondResult(rows) {
                         callback(null,lambda_response)
                         }
                         else if (database_num != null) {
-                            const revised_num = database_num - 1
-                            const statement = "Name: " + rows[revised_num].name + "\n" + " Minimum Requirements: " + "\n" + data[revised_num][0] + "\n" + data[revised_num][1] + "\n" + data[revised_num][2] + "\n"
-                            
+                            const statement = "Name: " + rows[database_num].name + "\n" + " Minimum Requirements: " + "\n" + data[database_num][0] + "\n" + data[database_num][1] + "\n" + data[database_num][2] + "\n"
                             
                             let lambda_response = {
                                 "dialogAction": {
