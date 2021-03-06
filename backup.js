@@ -64,83 +64,28 @@ function getSecondResult(rows) {
                         var rows_parsed4 = rows_parsed3.split(',');
                         data.push(rows_parsed4)
                         }
-                        
-                        if (rows.length > 0){
-                            const result_names = function (x){
-                                const name_database = []
-                                for (var i = 0; i < data.length; i++){
-                                const statement = "[" + i + "]" + "Name: " + rows[i].name
-                                name_database.push(statement)
-                            }
-                            return(name_database)
-
-                            }
-                            let lambda_response = {     
-                                "dialogAction": {     
-                                    "type": "ElicitSlot",
-                            
-                                "message": {       
-                                    "contentType": "PlainText",
-                                    "content": result_names(data).toString()
-                            },
-                            "intentName": "Budget",
-                            "slots": {
-                                "Budget_Amount": budget,
-                                "Purpose": purpose,
-                                "games_played": games,
-                                "monitor_resolution": resolution 
-                                // "games_played": null
-                            },
-                            "slotToElicit": "database_selection"
-                            
-                         } 
-                        
-                        };
-                        callback(null,lambda_response)
+                        const apple = function (x){
+                            const string_database = []
+                            for (var i = 0; i < data.length; i++){
+                            const statement = "\n"+ "Name: " + rows[i].name + "\n" + " Minimum Requirements: " + "\n" + data[i][0] + "\n" + data[i][1] + "\n" + data[i][2] + "\n"
+                            string_database.push(statement)
                         }
-                        else if (database_num != null) {
-                            const revised_num = database_num - 1
-                            const statement = "Name: " + rows[revised_num].name + "\n" + " Minimum Requirements: " + "\n" + data[revised_num][0] + "\n" + data[revised_num][1] + "\n" + data[revised_num][2] + "\n"
-                            
-                            
-                            let lambda_response = {
-                                "dialogAction": {
-                                        "type": "Close",
-                                        "fulfillmentState": "Fulfilled",
-                                        "message": {
-                                          "contentType": "PlainText",
-                                          "content": "Steam Requirements:" + "\n" + statement.toString() + "\n"
-                                        }
-                                }
-                            }
-                            callback(null,lambda_response)
-
-                        }
-                        else{
-                            const apple = function (x){
-                                const string_database = []
-                                for (var i = 0; i < data.length; i++){
-                                const statement = "\n"+ "Name: " + rows[i].name + "\n" + " Minimum Requirements: " + "\n" + data[i][0] + "\n" + data[i][1] + "\n" + data[i][2] + "\n"
-                                string_database.push(statement)
-                            }
-                            return(string_database)
-                            }
-                            let lambda_response = {
-                                "dialogAction": {
-                                        "type": "Close",
-                                        "fulfillmentState": "Fulfilled",
-                                        "message": {
-                                          "contentType": "PlainText",
-                                          "content": "Steam Requirements:" + "\n" + "\n" + (apple(data).toString()) + "\n"
-                                        }
-                                }
-                            }
-                            console.log(lambda_response)
-                            callback(null,lambda_response)
+                        return(string_database)
                         }
             
-                
-                
+                //
+                let lambda_response = {
+                            "dialogAction": {
+                                    "type": "Close",
+                                    "fulfillmentState": "Fulfilled",
+                                    "message": {
+                                      "contentType": "PlainText",
+                                      "content": "Steam Requirements:" + "\n" + "\n" + (apple(data).toString()) + "\n"
+                                    }
+                            }
+                        }
+                        console.log(lambda_response)
+                        callback(null,lambda_response)
                 
             }
 
@@ -163,7 +108,6 @@ var purpose = event.currentIntent.slots.Purpose.toLowerCase();
 var budget = parseInt(event.currentIntent.slots.Budget_Amount.replace(/\D/g,''));
 var games = event.currentIntent.slots.games_played;
 var resolution = event.currentIntent.slots.monitor_resolution;
-var database_num = event.currentIntent.slots.database_selection
 
 
 
@@ -233,7 +177,6 @@ if (purpose.includes("gaming")) {
                     };
      callback(null,lambda_response);  
         }
-        
     
 
 
