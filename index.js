@@ -70,10 +70,9 @@ function getSecondResult(rows) {
                                 const name_database = []
                                 for (var i = 0; i < data.length; i++){
                                 const statement = "[" + i + "]" + " Name: " + rows[i].name + "\n"
-                                const revised_statement = statement.join() 
-                                name_database.push(revised_statement)
+                                name_database.push(statement)
                             }
-                            return(name_database)
+                            return(name_database.join())
 
                             }
                             let lambda_response = {     
