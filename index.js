@@ -65,7 +65,7 @@ function getSecondResult(rows) {
                         data.push(rows_parsed4)
                         }
                         
-                        if (rows.length > 0 && database_num == null){
+                        if (data.length > 1 && database_num == null){
                             const result_names = function (x){
                                 const name_database = []
                                 for (var i = 0; i < data.length; i++){
@@ -98,7 +98,7 @@ function getSecondResult(rows) {
                         };
                         callback(null,lambda_response)
                         }
-                        else if (database_num != null) {
+                        else if (data.length > 1 && database_num != null) {
                             const statement = "Name: " + rows[database_num].name + "\n" + " Minimum Requirements: " + "\n" + data[database_num][0] + "\n" + data[database_num][1] + "\n" + data[database_num][2] + "\n"
                             
                             let lambda_response = {
