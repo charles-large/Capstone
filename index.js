@@ -81,7 +81,7 @@ function getSecondResult(rows) {
                             
                                 "message": {       
                                     "contentType": "PlainText",
-                                    "content": result_names(data).toString()
+                                    "content": result_names(data).join(' ').toString()
                             },
                             "intentName": "Budget",
                             "slots": {
