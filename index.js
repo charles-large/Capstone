@@ -69,8 +69,9 @@ function getSecondResult(rows) {
                             const result_names = function (x){
                                 const name_database = []
                                 for (var i = 0; i < data.length; i++){
-                                const statement = "[" + i + "]" + " Name: " + rows[i].name + "\n" 
-                                name_database.push(statement).replace(/[,]/g,'')
+                                const statement = "[" + i + "]" + " Name: " + rows[i].name + "\n"
+                                const revised_statement = statement.replace(/[,]/g,'') 
+                                name_database.push(revised_statement)
                             }
                             return(name_database)
 
