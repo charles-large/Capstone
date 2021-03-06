@@ -65,11 +65,11 @@ function getSecondResult(rows) {
                         data.push(rows_parsed4)
                         }
                         
-                        if (rows.length > 0){
+                        if (rows.length > 0 && database_num == null){
                             const result_names = function (x){
                                 const name_database = []
                                 for (var i = 0; i < data.length; i++){
-                                const statement = "[" + i + "]" + "Name: " + rows[i].name
+                                const statement = "[" + i + "]" + " Name: " + rows[i].name + "\n" 
                                 name_database.push(statement)
                             }
                             return(name_database)
