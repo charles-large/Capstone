@@ -1,5 +1,9 @@
 
 var mysql = require('mysql');
+var aws = require('aws-sdk');
+var lambda = new aws.Lambda({
+    region: 'us-east-1'
+});
 
 
 exports.handler = function (event, context, callback){
@@ -44,7 +48,7 @@ function getResult(game_choice){
 
 
 
-function getSecondResult(rows) {
+async function getSecondResult(rows) {
                         const data = []
                         for (var i = 0; i < rows.length; i++){
                         //Parse response from database
@@ -64,32 +68,106 @@ function getSecondResult(rows) {
                         var rows_parsed4 = rows_parsed3.split(',');
                         data.push(rows_parsed4)
                         }
-                        const apple = function (x){
-                            const string_database = []
-                            for (var i = 0; i < data.length; i++){
-                            const statement = "\n"+ "Name: " + rows[i].name + "\n" + " Minimum Requirements: " + "\n" + data[i][0] + "\n" + data[i][1] + "\n" + data[i][2] + "\n"
-                            string_database.push(statement)
+                        
+                        if (data.length > 1 && database_num == null){
+                            const result_names = function (x){
+                                const name_database = []
+                                for (var i = 0; i < data.length; i++){
+                                const statement = "[" + i + "]" + " Name: " + rows[i].name + "\n"
+                                name_database.push(statement)
+                            }
+                            return(name_database)
+
+                            }
+                            let lambda_response = {     
+                                "dialogAction": {     
+                                    "type": "ElicitSlot",
+                            
+                                "message": {       
+                                    "contentType": "PlainText",
+                                    "content": result_names(data).join(' ').toString()
+                            },
+                            "intentName": "Budget",
+                            "slots": {
+                                "Budget_Amount": budget,
+                                "Purpose": purpose,
+                                "games_played": games,
+                                "monitor_resolution": resolution 
+                                // "games_played": null
+                            },
+                            "slotToElicit": "database_selection"
+                            
+                         } 
+                        
+                        };
+                        callback(null,lambda_response)
                         }
-                        return(string_database)
+                        else if (data.length > 1 && database_num != null) {
+                            python_response = await SecondLambdaResponse()
+                            const statement = "Name: " + rows[database_num].name + "\n" + " Minimum Requirements: " + "\n" + data[database_num][0] + "\n" + data[database_num][1] + "\n" + data[database_num][2] + "\n"
+                            
+                            let lambda_response = {
+                                "dialogAction": {
+                                        "type": "Close",
+                                        "fulfillmentState": "Fulfilled",
+                                        "message": {
+                                          "contentType": "PlainText",
+                                          "content": "Steam Requirements:" + "\n" + statement.toString() + "\n" + python_response
+                                        }
+                                }
+                            }
+                            callback(null,lambda_response)
+
+                        }
+                        else{
+                            const apple = function (x){
+                                const string_database = []
+                                for (var i = 0; i < data.length; i++){
+                                const statement = "\n"+ "Name: " + rows[i].name + "\n" + " Minimum Requirements: " + "\n" + data[i][0] + "\n" + data[i][1] + "\n" + data[i][2] + "\n"
+                                string_database.push(statement)
+                            }
+                            return(string_database)
+                            }
+                            let lambda_response = {
+                                "dialogAction": {
+                                        "type": "Close",
+                                        "fulfillmentState": "Fulfilled",
+                                        "message": {
+                                          "contentType": "PlainText",
+                                          "content": "Steam Requirements:" + "\n" + "\n" + (apple(data).toString()) + "\n"
+                                        }
+                                }
+                            }
+                            console.log(lambda_response)
+                            callback(null,lambda_response)
                         }
             
-                //
-                let lambda_response = {
-                            "dialogAction": {
-                                    "type": "Close",
-                                    "fulfillmentState": "Fulfilled",
-                                    "message": {
-                                      "contentType": "PlainText",
-                                      "content": "Steam Requirements:" + "\n" + "\n" + (apple(data).toString()) + "\n"
-                                    }
-                            }
-                        }
-                        console.log(lambda_response)
-                        callback(null,lambda_response)
+                
+                
                 
             }
 
-
+async function SecondLambdaResponse(){
+    let params = {
+        FunctionName: 'arn:aws:lambda:us-east-1:742033175622:function:pcbot_price',
+        InvocationType: 'RequestResponse',
+        Payload: JSON.stringify({ 
+            purpose : purpose,
+            budget : budget,
+            resolution: resolution
+        })
+        };
+        const python_response = await lambda.invoke(params, function(err,data){
+            if (err){
+                throw err;
+                
+            } else {
+                console.log(data.Payload)
+            }
+            
+        })
+        return(python_response)
+}
 
 async function doSomething(game_choice) {
     try{
@@ -108,6 +186,7 @@ var purpose = event.currentIntent.slots.Purpose.toLowerCase();
 var budget = parseInt(event.currentIntent.slots.Budget_Amount.replace(/\D/g,''));
 var games = event.currentIntent.slots.games_played;
 var resolution = event.currentIntent.slots.monitor_resolution;
+var database_num = event.currentIntent.slots.database_selection
 
 
 
@@ -177,6 +256,7 @@ if (purpose.includes("gaming")) {
                     };
      callback(null,lambda_response);  
         }
+        
     
 
 
