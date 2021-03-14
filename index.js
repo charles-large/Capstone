@@ -29,7 +29,7 @@ function getResult(game_choice){
             }
             else{
                 console.log("This else is being executed")
-                const sql2 = "SELECT * FROM pc_games.steam_games WHERE name LIKE CONCAT(?,'%') AND recommended_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
+                const sql2 = "SELECT * FROM pc_games.steam_games WHERE name LIKE CONCAT(?,'%') AND reccommended_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
                 connection.query(sql2, [game_choice], (err, rows, fields) => {
                 if (!err && !false){
                     resolve(rows)
