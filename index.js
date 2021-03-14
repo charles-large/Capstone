@@ -123,7 +123,7 @@ async function getSecondResult(rows, halftime) {
                                         "fulfillmentState": "Fulfilled",
                                         "message": {
                                           "contentType": "PlainText",
-                                          "content": "Steam Requirements:" + "\n" + statement.toString() + "\n" + response_data 
+                                          "content": "Steam Requirements:" + "\n" + statement.toString() + "\n" + "\n" + "Purpose: " + jsonObject.value['purpose'] + "\n" +  "Budget: " + jsonObject.value['budget'] + "\n" + "Resolution: " + jsonObject.value['resolution']
                                         }
                                 }
                             }
