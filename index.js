@@ -29,7 +29,7 @@ function getResult(game_choice){
             }
             else{
                 console.log("This else is being executed")
-                const sql2 = "SELECT * FROM pc_games.steam_games WHERE name LIKE CONCAT(?,'%') AND minimum_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
+                const sql2 = "SELECT * FROM pc_games.steam_games WHERE name LIKE CONCAT(?,'%') AND recommended_requirements NOT IN ('','NaN') AND types = 'app' LIMIT 5";
                 connection.query(sql2, [game_choice], (err, rows, fields) => {
                 if (!err && !false){
                     resolve(rows)
@@ -52,7 +52,7 @@ async function getSecondResult(rows, halftime) {
                         const data = []
                         for (var i = 0; i < rows.length; i++){
                         //Parse response from database
-                        const query = rows[i].minimum_requirements
+                        const query = rows[i].recommended_requirements
                         // Removes semi colon and commas from output
                         const rows_parsed = query.replace(/[:,]/g,' ');
                         //Removes excessive white space
@@ -116,7 +116,7 @@ async function getSecondResult(rows, halftime) {
                             }
                             
                             //console.log(test5['value']['purpose'])
-                            const statement = "Name: " + rows[database_num].name + "\n" + " Minimum Requirements: " + "\n" + data[database_num][0] + "\n" + data[database_num][1] + "\n" + data[database_num][2] + "\n"
+                            const statement = "Name: " + rows[database_num].name + "\n" + " Recommended Requirements: " + "\n" + data[database_num][0] + "\n" + data[database_num][1] + "\n" + data[database_num][2] + "\n"
                             let lambda_response = {
                                 "dialogAction": {
                                         "type": "Close",
@@ -135,7 +135,7 @@ async function getSecondResult(rows, halftime) {
                             const apple = function (x){
                                 const string_database = []
                                 for (var i = 0; i < data.length; i++){
-                                const statement = "\n"+ "Name: " + rows[i].name + "\n" + " Minimum Requirements: " + "\n" + data[i][0] + "\n" + data[i][1] + "\n" + data[i][2] + "\n"
+                                const statement = "\n"+ "Name: " + rows[i].name + "\n" + " Recommended Requirements: " + "\n" + data[i][0] + "\n" + data[i][1] + "\n" + data[i][2] + "\n"
                                 string_database.push(statement)
                             }
                             return(string_database)
