@@ -52,7 +52,7 @@ async function getSecondResult(rows, halftime) {
                         const data = []
                         for (var i = 0; i < rows.length; i++){
                         //Parse response from database
-                        const query = rows[i].recommended_requirements
+                        const query = rows[i].reccommended_requirements
                         // Removes semi colon and commas from output
                         const rows_parsed = query.replace(/[:,]/g,' ');
                         //Removes excessive white space
