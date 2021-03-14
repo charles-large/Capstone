@@ -1,5 +1,9 @@
 
 var mysql = require('mysql');
+var aws = require('aws-sdk');
+var lambda = new aws.Lambda({
+    region: 'us-east-1'
+});
 
 
 exports.handler = function (event, context, callback){
@@ -44,7 +48,7 @@ function getResult(game_choice){
 
 
 
-function getSecondResult(rows) {
+async function getSecondResult(rows, halftime) {
                         const data = []
                         for (var i = 0; i < rows.length; i++){
                         //Parse response from database
@@ -99,20 +103,33 @@ function getSecondResult(rows) {
                         callback(null,lambda_response)
                         }
                         else if (data.length > 1 && database_num != null) {
-                            const statement = "Name: " + rows[database_num].name + "\n" + " Minimum Requirements: " + "\n" + data[database_num][0] + "\n" + data[database_num][1] + "\n" + data[database_num][2] + "\n"
+                            const response_data = await SecondLambdaResponse()
+                            const jsonObject = JSON.parse(response_data)
+                            try{
+                                console.log(Object.getOwnPropertyNames(jsonObject))
+                                console.log(jsonObject.value)
+                                console.log(jsonObject.value['purpose'])
+                                
+                            }
+                            catch (err) {
+                                console.log("Error")
+                            }
                             
+                            //console.log(test5['value']['purpose'])
+                            const statement = "Name: " + rows[database_num].name + "\n" + " Minimum Requirements: " + "\n" + data[database_num][0] + "\n" + data[database_num][1] + "\n" + data[database_num][2] + "\n"
                             let lambda_response = {
                                 "dialogAction": {
                                         "type": "Close",
                                         "fulfillmentState": "Fulfilled",
                                         "message": {
                                           "contentType": "PlainText",
-                                          "content": "Steam Requirements:" + "\n" + statement.toString() + "\n"
+                                          "content": "Steam Requirements:" + "\n" + statement.toString() + "\n" + response_data 
                                         }
                                 }
                             }
                             callback(null,lambda_response)
-
+        
+                            
                         }
                         else{
                             const apple = function (x){
@@ -129,7 +146,7 @@ function getSecondResult(rows) {
                                         "fulfillmentState": "Fulfilled",
                                         "message": {
                                           "contentType": "PlainText",
-                                          "content": "Steam Requirements:" + "\n" + "\n" + (apple(data).toString()) + "\n"
+                                          "content": "Steam Requirements:" + "\n" + "\n" + (apple(data).toString()) + "\n" 
                                         }
                                 }
                             }
@@ -142,18 +159,48 @@ function getSecondResult(rows) {
                 
             }
 
+async function SecondLambdaResponse(){
+    let params = {
+        FunctionName: 'arn:aws:lambda:us-east-1:742033175622:function:pcbot_price',
+        InvocationType: 'RequestResponse',
+        Payload: JSON.stringify({ 
+            purpose : "test1",
+            budget : "test2",
+            resolution: "test3"
+        })
+        };
+        return new Promise((resolve, reject) => {
+            
+            lambda.invoke(params, function(err, data){
+            if(err){
+                reject(err)
+            }
+            else{
+                //console.log(data)
+                let response_data = data.Payload
+                //console.log(test2)
+                resolve(response_data)
+            }
+            
+        })
+        //return(Object.getOwnPropertyNames(result.response.data))
+            
+        })
+        
+        
+}
 
 
 async function doSomething(game_choice) {
     try{
+        
         const first = await getResult(game_choice)
-        console.log("first done")
         const second = await getSecondResult(first)
-        console.log("second done")
         return(second)
+        
     }
     catch (err) {
-        console.log("Error")
+        console.log(err)
     }
 }
 
